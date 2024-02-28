@@ -45,23 +45,35 @@ namespace MyUtils
 
 			while (true)
 			{
-				Console.WriteLine("Please select a number between " + min.ToString() + " and " + max.ToString());
-				int selection = Convert.ToInt32(Console.ReadLine());
-				if (selection >= min && selection <= max)
+				try
 				{
-					Console.BackgroundColor = bgInitialColor;
-					Console.ForegroundColor = fgInitialColor;
-					return selection;
+					Console.WriteLine("Please select a number between " + min.ToString() + " and " + max.ToString());
+					int selection = Convert.ToInt32(Console.ReadLine());
+					if (selection >= min && selection <= max)
+					{
+						Console.BackgroundColor = bgInitialColor;
+						Console.ForegroundColor = fgInitialColor;
+						return selection;
+					}
+					else
+					{
+						Console.Write("Erorr, >");
+						Console.BackgroundColor = ConsoleColor.Red;
+						Console.ForegroundColor = ConsoleColor.Black;
+						Console.Write(selection.ToString());
+						Console.BackgroundColor = bgInitialColor;
+						Console.ForegroundColor = fgInitialColor;
+						Console.Write("< is not in the required range (" + min.ToString() + "-" + max.ToString() + ").\n");
+					}
 				}
-				else
+				catch (Exception ex)
 				{
-					Console.Write("Erorr, >");
-					Console.BackgroundColor = ConsoleColor.Red;
-					Console.ForegroundColor = ConsoleColor.Black;
-					Console.Write(selection.ToString());
-					Console.BackgroundColor = bgInitialColor;
-					Console.ForegroundColor = fgInitialColor;
-					Console.Write("< is not in the required range (" + min.ToString() + "-" + max.ToString() + ").\n");	
+					Console.WriteLine(ex.Message);
+				}
+				finally
+				{
+					Console.WriteLine("Press enter to continue");
+					Console.ReadLine();
 				}
 			}
 		}
