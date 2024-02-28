@@ -9,6 +9,7 @@ namespace MyUtils
 {
 	public class ConsoleFunctions
 	{
+
 		/// <summary>
 		/// Queries the user for an integer value between /min/ and /max/
 		/// Prompts the user with prompt message
@@ -41,10 +42,10 @@ namespace MyUtils
 			ConsoleColor bgInitialColor = Console.BackgroundColor;
 			ConsoleColor fgInitialColor = Console.ForegroundColor;
 
+
 			while (true)
 			{
 				Console.WriteLine("Please select a number between " + min.ToString() + " and " + max.ToString());
-				
 				int selection = Convert.ToInt32(Console.ReadLine());
 				if (selection >= min && selection <= max)
 				{
@@ -63,6 +64,17 @@ namespace MyUtils
 					Console.Write("< is not in the required range (" + min.ToString() + "-" + max.ToString() + ").\n");	
 				}
 			}
+		}
+
+		static public string GetTextFromUser()
+		{
+			return GetTextFromUser("Please input some text here: ");
+		}
+
+		static public string GetTextFromUser(string prompt)
+		{
+			Console.WriteLine(prompt);
+			return Console.ReadLine();
 		}
 	}
 }
