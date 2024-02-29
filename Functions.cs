@@ -10,14 +10,6 @@ namespace MyUtils
 	public class ConsoleFunctions
 	{
 
-		/// <summary>
-		/// Queries the user for an integer value between /min/ and /max/
-		/// Prompts the user with prompt message
-		/// If the user enters an invalid value then error message is displayed and user is queried again
-		/// </summary>
-		/// <param name="min"></param>
-		/// <param name="max"></param>
-		/// <returns> int </returns>
 		static public int GetIntFromUserWithBounds(int min, int max, string promptMessage = "", string errorMessage = "")
 		{
 			while (true)
@@ -29,14 +21,6 @@ namespace MyUtils
 			}
 		}
 
-		/// <summary>
-		/// Queries the user for an integer value between /min/ and /max/
-		/// Prompts the user to choose between min and max
-		/// If the user enters an invalid value, an error message is shown and the user is queried again
-		/// </summary>
-		/// <param name="min"></param>
-		/// <param name="max"></param>
-		/// <returns> int </returns>
 		static public int GetIntFromUserWithBounds(int min, int max)
 		{
 			ConsoleColor bgInitialColor = Console.BackgroundColor;
@@ -69,9 +53,6 @@ namespace MyUtils
 				catch (Exception ex)
 				{
 					Console.WriteLine(ex.Message);
-				}
-				finally
-				{
 					Console.WriteLine("Press enter to continue");
 					Console.ReadLine();
 				}
@@ -87,6 +68,17 @@ namespace MyUtils
 		{
 			Console.WriteLine(prompt);
 			return Console.ReadLine();
+		}
+
+		static public bool GetBoolFromUser()
+		{
+			while (true)
+			{
+				char input = Convert.ToChar(Console.ReadLine()[0]);
+				if (input == 'y') return true;
+				if (input == 'n') return false;
+				Console.WriteLine("Please enter y / n");
+			}
 		}
 	}
 }
