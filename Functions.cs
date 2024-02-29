@@ -80,5 +80,27 @@ namespace MyUtils
 				Console.WriteLine("Please enter y / n");
 			}
 		}
-	}
+
+		static public void WaitForEnter(bool clearScreenAfter = false)
+		{
+			Console.WriteLine("Press enter to continue:");
+			Console.ReadLine();
+			if (clearScreenAfter) Console.Clear();
+		}
+
+		static public void SetInitialConsoleColors()
+		{
+			BgInitialColor = Console.BackgroundColor;
+			FgInitialColor = Console.ForegroundColor;
+		}
+
+		static public void ResetConsoleColors()
+		{
+			Console.BackgroundColor = BgInitialColor;
+			Console.ForegroundColor = FgInitialColor;
+		}
+
+        static private ConsoleColor BgInitialColor { get; set; }
+        static private ConsoleColor FgInitialColor { get; set; }
+    }
 }
