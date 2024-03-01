@@ -100,6 +100,11 @@ namespace MyUtils
 			Console.ForegroundColor = FgInitialColor;
 		}
 
+		static public ConsoleKey GetConsoleKeyFromUser()
+		{
+			return Console.ReadKey(true).Key;
+		}
+
         static private ConsoleColor BgInitialColor { get; set; }
         static private ConsoleColor FgInitialColor { get; set; }
     }
