@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -12,12 +13,22 @@ namespace MyUtils
 
 		static public int GetIntFromUserWithBounds(int min, int max, string promptMessage = "", string errorMessage = "")
 		{
+			int selection = min - 1;
 			while (true)
 			{
 				Console.WriteLine(promptMessage);
-				int selection = Convert.ToInt32(Console.ReadLine());
-				if (selection >= min && selection <= max) return selection;
-				else Console.WriteLine(errorMessage);
+				try
+				{
+					selection = Convert.ToInt32(Console.ReadLine());
+					if (selection >= min && selection <= max) return selection;
+					else Console.WriteLine(errorMessage);
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex.Message);
+					Console.WriteLine("Press enter to continue");
+					Console.ReadLine();
+				}
 			}
 		}
 
@@ -80,6 +91,18 @@ namespace MyUtils
 				Console.WriteLine("Please enter y / n");
 			}
 		}
+		
+		static public bool GetBoolFromUser(string prompt)
+		{
+			while (true)
+			{
+				Console.WriteLine(prompt);
+				char input = Convert.ToChar(Console.ReadLine()[0]);
+				if (input == 'y') return true;
+				if (input == 'n') return false;
+				Console.WriteLine("Please enter y / n");
+			}
+		}
 
 		static public void WaitForEnter(bool clearScreenAfter = false)
 		{
@@ -103,6 +126,27 @@ namespace MyUtils
 		static public ConsoleKey GetConsoleKeyFromUser()
 		{
 			return Console.ReadKey(true).Key;
+		}
+
+		static public void ClearCurrentLine()
+		{
+			ClearLineAt(Console.CursorTop);
+		}
+
+		static public void ClearLineAt(int line)
+		{
+			if (line < 0) return;
+			Console.SetCursorPosition(0, line);
+			Console.Write(new string(' ', Console.WindowWidth));
+			Console.SetCursorPosition(0, line - 1);
+		}
+
+		static public void WriteStringAtPosition(string s, int x = -1, int y = -1)
+		{
+			if (x == -1) x = Console.CursorLeft;
+			if (y == -1) y = Console.CursorTop;
+			Console.SetCursorPosition(x, y);
+			Console.Write(s);
 		}
 
         static private ConsoleColor BgInitialColor { get; set; }
