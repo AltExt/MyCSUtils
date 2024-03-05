@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyUtils
 {
@@ -123,6 +117,11 @@ namespace MyUtils
 			Console.ForegroundColor = FgInitialColor;
 		}
 
+		static public void SwapConsoleColors()
+		{
+			(Console.BackgroundColor, Console.ForegroundColor) = (Console.ForegroundColor, Console.BackgroundColor);
+		}
+
 		static public ConsoleKey GetConsoleKeyFromUser()
 		{
 			return Console.ReadKey(true).Key;
@@ -138,18 +137,21 @@ namespace MyUtils
 			if (line < 0) return;
 			Console.SetCursorPosition(0, line);
 			Console.Write(new string(' ', Console.WindowWidth));
-			Console.SetCursorPosition(0, line - 1);
+			Console.SetCursorPosition(0, line);
 		}
 
 		static public void WriteStringAtPosition(string s, int x = -1, int y = -1)
 		{
-			if (x == -1) x = Console.CursorLeft;
-			if (y == -1) y = Console.CursorTop;
+			int initialX = Console.CursorLeft;
+			int initialY = Console.CursorTop;
+			if (x < 0) x = Console.CursorLeft;
+			if (y < 0) y = Console.CursorTop;
 			Console.SetCursorPosition(x, y);
 			Console.Write(s);
+			Console.SetCursorPosition(initialX, initialY);
 		}
 
-        static private ConsoleColor BgInitialColor { get; set; }
-        static private ConsoleColor FgInitialColor { get; set; }
+		static private ConsoleColor BgInitialColor { get; set; } = Console.BackgroundColor;
+		static private ConsoleColor FgInitialColor { get; set; } = Console.ForegroundColor;
     }
 }
