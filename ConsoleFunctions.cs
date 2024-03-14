@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography;
 
 namespace MyUtils
 {
@@ -149,6 +150,49 @@ namespace MyUtils
 			Console.SetCursorPosition(x, y);
 			Console.Write(s);
 			Console.SetCursorPosition(initialX, initialY);
+		}
+
+		static public void DrawFixedGrid(int startX, int startY, int rows, int cols, int rowHeight, int colWidth, bool clearScreen = false)
+		{
+			if (clearScreen) Console.Clear();
+
+			Console.SetCursorPosition(startX, startY);
+
+			string bars = StringFunctions.RepeatString("#" + new string('=', colWidth), cols) + "#";
+			string cell = StringFunctions.RepeatString("|" + new string(' ', colWidth), cols) + "|";
+
+			Console.WriteLine(bars);
+			for (int i = 0; i < rows; i++)
+			{
+				for (int j = 0; j < rowHeight; j++) Console.WriteLine(cell);
+				
+				Console.WriteLine(bars);
+			}
+		}
+
+		static public void DrawFlexibleGrid(int startX, int startY, int[] cellWidths, int[] cellHeights, bool clearScreen = false)
+		{
+			if (cellWidths.Length == 0 || cellHeights.Length == 0) return;
+
+			if (clearScreen) Console.Clear();
+
+			Console.SetCursorPosition(startX, startY);
+
+			string bars = "#";
+			string cell = "|";
+
+			for (int i = 0; i < cellWidths.Length; i++)
+			{
+				bars += new string('=', cellWidths[i]) + "#";
+				cell += new string(' ', cellWidths[i]) + "|";
+			}
+
+			Console.WriteLine(bars);
+			for (int i = 0; i < cellHeights.Length; i++)
+			{
+				for (int j = 0; j < cellHeights[i]; j++) Console.WriteLine(cell);
+				Console.WriteLine(bars);
+			}
 		}
 
 		static private ConsoleColor BgInitialColor { get; set; } = Console.BackgroundColor;
